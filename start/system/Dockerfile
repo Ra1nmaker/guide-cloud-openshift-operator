@@ -1,4 +1,5 @@
-FROM openliberty/open-liberty:full-java11-openj9-ubi
+#FROM openliberty/open-liberty:full-java11-openj9-ubi
+FROM ibmcom/websphere-liberty:full-java11-openj9-ubi
 
 ARG VERSION=1.0
 ARG REVISION=SNAPSHOT
