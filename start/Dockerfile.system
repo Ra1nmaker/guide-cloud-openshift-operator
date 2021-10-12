@@ -1,11 +1,9 @@
-# Stage 1.
 FROM maven:3.8-openjdk-11 as build
 COPY . /tmp/src
 WORKDIR /tmp/src
 RUN mvn -pl models clean install \
     && mvn clean package
 
-# Stage 2.
 #FROM openliberty/open-liberty:full-java11-openj9-ubi
 FROM ibmcom/websphere-liberty:full-java11-openj9-ubi
 
