@@ -23,7 +23,7 @@ LABEL \
   summary="The system microservice from the 'Deploying microservices using the Open Liberty Operator on OpenShift' guide" \
   description="This image contains the system microservice running with the Open Liberty runtime."
 
-COPY --chown=1001:0 --from=build system/src/main/liberty/config /config/
-COPY --chown=1001:0 --from=build system/target/system.war /config/apps
+COPY --chown=1001:0 --from=build /tmp/src/start/system/src/main/liberty/config /config/
+COPY --chown=1001:0 --from=build /tmp/src/system/target/system.war /config/apps
 
 RUN configure.sh
