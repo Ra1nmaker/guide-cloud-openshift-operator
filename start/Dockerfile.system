@@ -1,0 +1,19 @@
+# Stage 1.
+FROM maven:3.8-openjdk-11 as build
+COPY . /tmp/src
+WORKDIR /tmp/src
+RUN mvn -pl models clean install \
+    && mvn clean package
+
+# Stage 2.
+FROM node:12-stretch-slim
+ENV LOGFILE /var/log/test.log
+RUN mkdir -p /home/node/app/client/dist && \
+    mkdir -p /home/node/app/server
+COPY --chown=node:node --from=build /home/node/app/client/dist/. /home/node/app/client/dist
+COPY --chown=node:node --from=build /home/node/app/server/. /home/node/app/server
+RUN chown -R node:node /home/node/app && touch ${LOGFILE} && chown -R node:node ${LOGFILE}
+
+USER node
+WORKDIR /home/node/app/server
+CMD [ "npm", "start"]
